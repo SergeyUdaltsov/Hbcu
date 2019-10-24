@@ -8,8 +8,11 @@ import dagger.Provides;
 
 import javax.inject.Singleton;
 
-@Module(includes = DaggerDaoProvider.class)
+@Module(includes = {DaggerDaoProvider.class})
 public class DaggerServiceProvider {
+
+    public DaggerServiceProvider() {
+    }
 
     @Provides
     @Singleton

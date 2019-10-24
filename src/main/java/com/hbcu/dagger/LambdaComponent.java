@@ -1,14 +1,21 @@
 package com.hbcu.dagger;
 
-import com.hbcu.lambda.CreateCustomerLambda;
-import com.hbcu.lambda.ListCustomersLambda;
+import com.hbcu.lambda.contract.SignContractLambda;
+import com.hbcu.lambda.customer.CreateCustomerLambda;
+import com.hbcu.lambda.customer.ListCustomersLambda;
 import dagger.Component;
+
 import javax.inject.Singleton;
 
 @Singleton
-@Component(modules = {DaggerDaoProvider.class, DaggerServiceProvider.class})
+@Component(
+        modules = {DaggerDaoProvider.class, DaggerServiceProvider.class}
+)
 public interface LambdaComponent {
+    void inject(ListCustomersLambda var1);
 
-    void inject(ListCustomersLambda lambda);
-    void inject(CreateCustomerLambda lambda);
+    void inject(CreateCustomerLambda var1);
+
+    void inject(SignContractLambda var1);
 }
+

@@ -2,7 +2,12 @@ package com.hbcu.dao;
 
 import com.hbcu.model.Customer;
 
-public interface ICustomerDao {
+import java.util.List;
 
-    void save(Customer customer);
+public interface ICustomerDao {
+    void save(Customer var1);
+
+    List<Customer> getAllCustomers();
+
+    Customer getCustomerById(int var1);
 }
