@@ -123,6 +123,11 @@ public class Contract
 
     @Override
     public String toString() {
-        return "Contract{number='" + this.number + '\'' + ", startDate=" + this.startDate + ", finDate=" + this.finDate + ", rent=" + this.rent + ", area=" + this.area + ", room='" + this.room + '\'' + '}';
+        return "Contract{number='" + this.number +
+                '\'' + ", startDate=" + this.startDate +
+                ", finDate=" + this.finDate +
+                ", rent=" + this.rent +
+                ", area=" + this.area +
+                ", room='" + this.room + '\'' + '}';
     }
 }
