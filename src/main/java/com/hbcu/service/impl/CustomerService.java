@@ -14,12 +14,14 @@ public class CustomerService implements ICustomerService {
     }
 
     public void save(Customer customer) {
-        dao.save(customer);
+        this.dao.save(customer);
     }
 
     public List<Customer> getAllCustomers() {
-        return null;
+        return this.dao.getAllCustomers();
     }
 
-
+    public Customer getCustomerById(int id) {
+        return this.dao.getCustomerById(id);
+    }
 }

@@ -4,10 +4,10 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
 import com.hbcu.dao.ICustomerDao;
 import com.hbcu.model.Customer;
-import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 public class CustomerDao extends BaseDao<Customer> implements ICustomerDao {
-
     public CustomerDao(DynamoDBMapper mapper) {
         super(mapper, Customer.class);
     }
@@ -16,12 +16,13 @@ public class CustomerDao extends BaseDao<Customer> implements ICustomerDao {
         super.save(customer, DynamoDBMapperConfig.SaveBehavior.UPDATE_SKIP_NULL_ATTRIBUTES.config());
     }
 
-    @Test
-    public void testMethod() {
-        Customer customer = new Customer();
-        customer.setEmail("ljdvuhu");
-        customer.setCompanyName("ekjbfkeb");
+    public List<Customer> getAllCustomers() {
+        return super.getAllEntities();
+    }
 
-        save(customer);
+    public Customer getCustomerById(int id) {
+        Customer customer = new Customer();
+        customer.setId(id);
+        return (Customer)super.getEntityByQueryObject(customer);
     }
 }

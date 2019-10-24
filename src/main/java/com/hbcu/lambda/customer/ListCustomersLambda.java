@@ -1,13 +1,13 @@
-package com.hbcu.lambda;
+package com.hbcu.lambda.customer;
 
 import com.hbcu.dagger.DaggerLambdaComponent;
+import com.hbcu.lambda.AbstractLambdaHandler;
 import com.hbcu.model.request.CustomerRequest;
 import com.hbcu.service.ICustomerService;
 
 import javax.inject.Inject;
 
 public class ListCustomersLambda extends AbstractLambdaHandler<CustomerRequest, Object> {
-
     private ICustomerService customerService;
 
     public ListCustomersLambda() {
@@ -16,12 +16,12 @@ public class ListCustomersLambda extends AbstractLambdaHandler<CustomerRequest, 
     }
 
     protected Object process(CustomerRequest request) {
-
-        return null;
+        int id = request.getId();
+        return id == 0 ? this.customerService.getAllCustomers() : this.customerService.getCustomerById(id);
     }
 
     public ICustomerService getCustomerService() {
-        return customerService;
+        return this.customerService;
     }
 
     @Inject
