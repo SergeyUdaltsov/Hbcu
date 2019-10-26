@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title class="lang" key="title">Resume</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../css/Style.css">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row" id="compTitle">
+        <div class="col-md-8">
+            <div class="row">
+                <i>
+                    <b id="compTitleKey" style="margin-left: 5px margin-right: 10px">Компания:</b>
+                </i>
+                <p id="compTitleValue" style="margin-left: 10px"></p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <i>
+                    <b id="contrKey" style="margin-right: 5px">Договор:</b>
+                </i>
+                <select id="contrValue" style="margin-left: 10px, width: 350px" size="1"></select>
+            </div>
+
+        </div>
+    </div>
+    <div class="row" id="rentField">
+        <div class="col-md-4">
+            <div class="row">
+                <i>
+                    <b id="areaKey" style="margin-left: 5px margin-right: 10px">Площадь:</b>
+                </i>
+                <p id="areaValue" style="margin-left: 10px"></p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <i>
+                    <b id="rentKey" style="margin-left: 5px margin-right: 10px">Ставка:</b>
+                </i>
+                <p id="rentValue" style="margin-left: 10px"></p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <i>
+                    <b id="roomKey" style="margin-left: 5px margin-right: 10px">Помещение:</b>
+                </i>
+                <p id="roomValue" style="margin-left: 10px"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <i>
+            <b id="descKey" style="margin-left: 5px margin-right: 10px">Примечания:</b>
+        </i>
+        <p id="descValue" style="margin-left: 10px"></p>
+    </div>
+    <div class="row">
+        <i>
+            <b id="contKey" style="margin-left: 5px margin-right: 10px">Контакты:</b>
+        </i>
+        <p id="contValue" style="margin-left: 10px"></p>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <i>
+                    <b id="startKey" style="margin-left: 5px margin-right: 10px">Начало дог.:</b>
+                </i>
+                <p id="startValue" style="margin-left: 10px"></p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <i>
+                    <b id="finishKey" style="margin-left: 5px margin-right: 10px">Окончанние дог.:</b>
+                </i>
+                <p id="finishValue" style="margin-left: 10px"></p>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                <i>
+                    <b id="rentBalKey" style="margin-left: 5px margin-right: 10px">Аренда баланс:</b>
+                </i>
+                <p id="rentBalValue" style="margin-left: 10px"></p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <i>
+                    <b id="powBalKey" style="margin-left: 5px margin-right: 10px">Эл. эн. баланс:</b>
+                </i>
+                <p id="powBalValue" style="margin-left: 10px"></p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <i>
+                    <b id="expBalKey" style="margin-left: 5px margin-right: 10px">Экспл. баланс:</b>
+                </i>
+                <p id="expBalValue" style="margin-left: 10px"></p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="container">
+                <table class="table" id="rentTable">
+                    <thead>
+                    <tr>
+                        <th id="dateRent" scope="col" style="background-color: #B8948C; width: 500px; text-align: center;">Дата</th>
+                        <th id="countRent" scope="col" style="background-color: #B8948C; width: 350px; text-align: center;">Начислено</th>
+                        <th id="payedRent" scope="col" style="background-color: #B8948C; width: 350px; text-align: center;">Оплата</th>
+                    </tr>
+                    </thead>
+                    <tbody id="rentTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <table class="table table-striped" id="powTable">
+                <thead class="thead-dark">
+                <tr>
+                    <th id="datePow" scope="col" style="background-color: #B8948C; width: 900px; text-align: center;">Дата</th>
+                    <th id="countPow" scope="col" style="background-color: #B8948C; width: 220px; text-align: center;">Начислено</th>
+                    <th id="payedPow" scope="col" style="background-color: #B8948C; width: 300px; text-align: center;">Оплата</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table class="table table-striped" id="expTable">
+                <thead class="thead-dark">
+                <tr>
+                    <th id="dateExp" scope="col" style="background-color: #B8948C; width: 900px; text-align: center;">Дата</th>
+                    <th id="countExp" scope="col" style="background-color: #B8948C; width: 220px; text-align: center;">Начислено</th>
+                    <th id="payedExp" scope="col" style="background-color: #B8948C; width: 300px; text-align: center;">Оплата</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script src="../../js/customer/CustomerProfile.js"></script>
+</body>
+
+</html>

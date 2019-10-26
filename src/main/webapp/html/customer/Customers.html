@@ -4,8 +4,18 @@
     <meta charset="UTF-8">
     <title class="lang" key="title">Customes</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../css/Style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../Style.css">
+    <!--    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 <div class="container-fluid">
@@ -13,30 +23,25 @@
         <div class="col-md-2">
 
             <div class="buttons" style="margin-top: 10px;">
+                <button type="button" class="btn btn-primary" style="margin: 5px" data-toggle="modal"
+                        data-target=".bd-contract-modal-xl">Оформить договор
+                </button>
+                <button type="button" class="btn btn-primary" style="margin: 5px" data-toggle="modal"
+                        data-target=".bd-customer-modal-xl">Новый контрагент
+                </button>
+                <button type="button" class="btn btn-primary" style="margin: 5px">Выйти</button>
 
-                <div class="createButton" style="margin-top: 15px;">
-                    <button id="createButton" class="lang" key="create">Create new customer</button>
-                </div>
-                <div class="cancelButton" style="margin-top: 5px;">
-                    <button id="cancelButton" class="lang" key="cancel">Cancel</button>
-                </div>
-                <div class="showBut" style="margin-top: 5px;">
-                    <button id="showBut" class="lang" key="show">Show</button>
-                </div>
             </div>
 
         </div>
-        <div class="col-md-10">
-            <table class="table table-striped" id="ordersTable">
-                <thead class="thead-dark">
+        <div class="container">
+            <h3>Контрагенты</h3>
+            <table class="table">
+                <thead>
                 <tr>
-                    <th class="lang" key="code" scope="col" style="background-color: #B8948C; width: 140px; text-align: center;">Контрагент</th>
-                    <th class="lang" key="st_start" scope="col" style="background-color: #B8948C; width: 230px; text-align: center;">Email</th>
-                    <th class="lang" key="depDate" scope="col" style="background-color: #B8948C; width: 230px; text-align: center;"></th>
-                    <th class="lang" key="depart_time" scope="col" style="background-color: #B8948C; width: 150px; text-align: center;">Помещние</th>
-                    <th class="lang" key="st_finish" scope="col" style="background-color: #B8948C; width: 230px; text-align: center;">Аренда</th>
-                    <th class="lang" key="arrDate" scope="col" style="background-color: #B8948C; width: 230px; text-align: center;">Экспл.</th>
-                    <th class="lang" key="arr_time" scope="col" style="background-color: #B8948C; width: 150px; text-align: center;">Эл. Эн.</th>
+                    <th style="background-color: #AAB7B8; width: 150px; text-align: center;">ЕДРПОУ</th>
+                    <th style="background-color: #B8948C; width: 400px; text-align: center;">Контрагент</th>
+                    <th style="background-color: #B8948C; width: 500px; text-align: center;">Контакты</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,11 +49,142 @@
             </table>
         </div>
     </div>
+    <div class="modal fade bd-contract-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-xl" style="background-color: #FFFFFF">
+            <div class="modal-content">
+                <div class="row" style="margin: 25px;">
+                    <div class="col-md-8">
+                        <div class="startStText" style="margin-left: 25px">
+                            <h6>Контрагент:</h6>
+                        </div>
+                        <div style="margin-left: 15px">
+                            <input type="text" id="companyId" list="companyList" style="width: 600px">
+                            <datalist id="companyList"></datalist>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div style="margin-left: 25px">
+                            <h6>Договор:</h6>
+                        </div>
+                        <div style="margin-left: 10px">
+                            <input type="text" style="width: 250px" id="contrId">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row" style="margin-left: 25px">
+                    <div style="margin-left: 25px">
+                        <div>
+                            <h6>Дата начала:</h6>
+                        </div>
+                        <div>
+                            <input type="date" id="startDate">
+                        </div>
+                    </div>
+                    <div class="depTime" style="margin-left: 25px;">
+                        <div>
+                            <h6>Дата окончания:</h6>
+                        </div>
+                        <div>
+                            <input type="date" id="finDate">
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 25px; margin-top: 25px">
+                    <div class="col-md-4">
+                        <div style="margin-left: 25px">
+                            <h6>Помещение:</h6>
+                        </div>
+                        <div style="margin-left: 10px">
+                            <input type="text" style="width: 200px" id="room">
+                        </div>
+                    </div>
+                    <div class="md-col-4">
+                        <div style="margin-left: 25px">
+                            <h6>Площадь:</h6>
+                        </div>
+                        <div style="margin-left: 10px">
+                            <input type="number" style="width: 200px" id="area">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div style="margin-left: 25px">
+                            <h6>Ставка:</h6>
+                        </div>
+                        <div style="margin-left: 10px">
+                            <input type="number" style="width: 200px" id="rent">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer" style="margin-top: 25px">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary" id="saveContr" data-dismiss="modal">Оформить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bd-customer-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-xl" style="background-color: grey; width: 700px">
+            <div class="modal-content">
+                <div class="row" style="margin-left: 25px; margin-top: 10px">
+                    <div>
+                        <h6>Название:</h6>
+                    </div>
+                    <div style="margin-left: 15px">
+                        <input type="text" id="companyName" style="width: 500px">
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 25px; margin-top: 10px">
+                    <div>
+                        <h6>ЕДРПОУ:</h6>
+                    </div>
+                    <div style="margin-right: 15px">
+                        <input type="text" style="width: 250px" id="compId">
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 25px; margin-top: 10px">
+                    <div>
+                        <h6>Email:</h6>
+                    </div>
+                    <div style="margin-right: 15px">
+                        <input type="email" id="email">
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 25px; margin-top: 10px">
+                    <div>
+                        <h6>Контакты:</h6>
+                    </div>
+                    <div style="margin-right: 15px">
+                        <input type="text" id="contacts">
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="margin-left: 25px">
+                        <h6>Примечание:</h6>
+                    </div>
+                    <div style="margin-right: 15px">
+                        <input type="text" style="width: 200px" id="descr">
+                    </div>
+                </div>
+                <div class="modal-footer" style="margin-top: 25px">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary" id="saveCustomer" data-dismiss="modal">Оформить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
+
 </body>
 <script src="../../js/customer/Customers.js"></script>
 
 <footer>
-    <p class="copyright" > &#169; Copyright Made for HBCU by Sergey Udaltsov  email: sergii.udaltsov@gmail.com</p>
+    <p class="copyright"> &#169; Copyright Made for HBCU by Sergey Udaltsov email: sergii.udaltsov@gmail.com</p>
 </footer>
 </html>

@@ -13,27 +13,36 @@ public class Contract
     @JsonProperty
     @DynamoDBAttribute(attributeName = "n")
     private String number;
+
     @JsonProperty
     @DynamoDBAttribute(attributeName = "start")
     private long startDate;
+
     @JsonProperty
     @DynamoDBAttribute(attributeName = "exp")
     private long finDate;
+
     @JsonProperty
     @DynamoDBAttribute(attributeName = "rent")
     private double rent;
+
     @JsonProperty
     @DynamoDBAttribute(attributeName = "area")
     private double area;
+
     @JsonProperty
     @DynamoDBAttribute(attributeName = "room")
     private String room;
+
     @DynamoDBAttribute(attributeName = "rb")
     private double rentBalance;
+
     @DynamoDBAttribute(attributeName = "pb")
     private double powBalance;
+
     @DynamoDBAttribute(attributeName = "eb")
     private double expBalance;
+
     @DynamoDBAttribute(attributeName = "pts")
     private List<Payment> payments;
 
@@ -119,6 +128,65 @@ public class Contract
 
     public void setPayments(final List<Payment> payments) {
         this.payments = payments;
+    }
+
+    public static ContractBuilder contractBuilber() {
+        return new ContractBuilder();
+    }
+
+    public static class ContractBuilder{
+
+        private Contract contract;
+
+        public ContractBuilder() {
+            this.contract = new Contract();
+        }
+
+        @JsonProperty("n")
+        public ContractBuilder withNumber(String number) {
+            this.contract.setNumber(number);
+            return this;
+        }
+
+        @JsonProperty("start")
+        public ContractBuilder withStartDate(long startDate) {
+            this.contract.setStartDate(startDate);
+            return this;
+        }
+
+        @JsonProperty("exp")
+        public ContractBuilder withFinDate(long finDate) {
+            this.contract.setFinDate(finDate);
+            return this;
+        }
+
+        @JsonProperty("rent")
+        public ContractBuilder withRent(double rent) {
+            this.contract.setRent(rent);
+            return this;
+        }
+
+        @JsonProperty("area")
+        public ContractBuilder withArea(double area) {
+            this.contract.setArea(area);
+            return this;
+        }
+
+        @JsonProperty("room")
+        public ContractBuilder withRoom(String room) {
+            this.contract.setRoom(room);
+            return this;
+        }
+
+        @JsonProperty("pts")
+        public ContractBuilder withPayments(List<Payment> payments) {
+            this.contract.setPayments(payments);
+            return this;
+        }
+
+        public Contract build() {
+            return this.contract;
+        }
     }
 
     @Override
