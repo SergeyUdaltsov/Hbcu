@@ -2,7 +2,7 @@ package com.hbcu.lambda.contract;
 
 import com.hbcu.dagger.DaggerLambdaComponent;
 import com.hbcu.lambda.AbstractLambdaHandler;
-import com.hbcu.model.Contract;
+import com.hbcu.model.contract.Contract;
 import com.hbcu.model.Customer;
 import com.hbcu.model.request.SignContractRequest;
 import com.hbcu.service.ICustomerService;

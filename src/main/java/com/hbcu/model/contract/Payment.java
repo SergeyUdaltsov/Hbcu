@@ -1,4 +1,4 @@
-package com.hbcu.model;
+package com.hbcu.model.contract;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConvertedEnum;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
@@ -10,8 +10,11 @@ public class Payment {
     @DynamoDBAttribute(attributeName = "date")
     private long date;
 
-    @DynamoDBAttribute(attributeName = "sum")
-    private double sum;
+    @DynamoDBAttribute(attributeName = "sumBill")
+    private double sumBill;
+
+    @DynamoDBAttribute(attributeName = "sumPay")
+    private double sumPayment;
 
     @DynamoDBTypeConvertedEnum
     @DynamoDBAttribute(attributeName = "pt")
@@ -21,6 +24,9 @@ public class Payment {
     @DynamoDBAttribute(attributeName = "st")
     private ServiceType serviceType;
 
+    @DynamoDBAttribute(attributeName = "bal")
+    private double balance;
+
     public long getDate() {
         return this.date;
     }
@@ -29,12 +35,20 @@ public class Payment {
         this.date = date;
     }
 
-    public double getSum() {
-        return this.sum;
+    public double getSumBill() {
+        return sumBill;
     }
 
-    public void setSum(final double sum) {
-        this.sum = sum;
+    public void setSumBill(double sumBill) {
+        this.sumBill = sumBill;
+    }
+
+    public double getSumPayment() {
+        return sumPayment;
+    }
+
+    public void setSumPayment(double sumPayment) {
+        this.sumPayment = sumPayment;
     }
 
     public PaymentType getPaymentType() {
@@ -51,6 +65,14 @@ public class Payment {
 
     public void setServiceType(final ServiceType serviceType) {
         this.serviceType = serviceType;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
     public static PaymentBuilder paymentBuilder() {
@@ -70,9 +92,15 @@ public class Payment {
             return this;
         }
 
-        @JsonProperty("sum")
-        public PaymentBuilder withSum(double sum) {
-            this.payment.setSum(sum);
+        @JsonProperty("sumBill")
+        public PaymentBuilder withSumBill(double sum) {
+            this.payment.setSumBill(sum);
+            return this;
+        }
+
+        @JsonProperty("sumPay")
+        public PaymentBuilder withSumPayment(double sum) {
+            this.payment.setSumPayment(sum);
             return this;
         }
 
@@ -85,6 +113,12 @@ public class Payment {
         @JsonProperty("st")
         public PaymentBuilder withServiceType(ServiceType serviceType) {
             this.payment.setServiceType(serviceType);
+            return this;
+        }
+
+        @JsonProperty("bal")
+        public PaymentBuilder withBalance(double sum) {
+            this.payment.setBalance(sum);
             return this;
         }
 

@@ -2,9 +2,14 @@ package com.hbcu.service.impl;
 
 import com.hbcu.dao.ICustomerDao;
 import com.hbcu.model.Customer;
+import com.hbcu.model.contract.Contract;
+import com.hbcu.model.contract.Payment;
+import com.hbcu.model.contract.serviceBalance.ServiceBalance;
 import com.hbcu.service.ICustomerService;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CustomerService implements ICustomerService {
     private ICustomerDao dao;
@@ -22,6 +27,30 @@ public class CustomerService implements ICustomerService {
     }
 
     public Customer getCustomerById(int id) {
-        return this.dao.getCustomerById(id);
+        Customer customer = this.dao.getCustomerById(id);
+        fillBalances(customer.getContracts());
+        return customer;
+    }
+
+    private void fillBalances(List<Contract> contracts ) {
+        for (Contract contract : contracts) {
+            List<ServiceBalance> serviceBalances = contract.getServiceBalances();
+            for (ServiceBalance balance : serviceBalances) {
+                fillSelectedBalance(balance);
+            }
+        }
+    }
+
+    private void fillSelectedBalance(ServiceBalance balance) {
+        double start = balance.getBalance();
+        List<Payment> sortedPayments = balance.getPayments().stream()
+                .sorted(Comparator.comparingDouble(Payment::getDate))
+                .collect(Collectors.toList());
+        for (Payment payment : sortedPayments) {
+            start = start - payment.getSumBill() + payment.getSumPayment();
+            payment.setBalance(start);
+        }
+
+
     }
 }

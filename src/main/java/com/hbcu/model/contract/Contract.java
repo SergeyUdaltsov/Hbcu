@@ -1,15 +1,15 @@
-package com.hbcu.model;
+package com.hbcu.model.contract;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDocument;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.hbcu.model.contract.serviceBalance.ServiceBalance;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @DynamoDBDocument
-public class Contract
-{
+public class Contract {
     @JsonProperty
     @DynamoDBAttribute(attributeName = "n")
     private String number;
@@ -34,20 +34,12 @@ public class Contract
     @DynamoDBAttribute(attributeName = "room")
     private String room;
 
-    @DynamoDBAttribute(attributeName = "rb")
-    private double rentBalance;
-
-    @DynamoDBAttribute(attributeName = "pb")
-    private double powBalance;
-
-    @DynamoDBAttribute(attributeName = "eb")
-    private double expBalance;
-
-    @DynamoDBAttribute(attributeName = "pts")
-    private List<Payment> payments;
+    @JsonProperty
+    @DynamoDBAttribute(attributeName = "bal")
+    private List<ServiceBalance> serviceBalances;
 
     public Contract() {
-        this.payments = new ArrayList<Payment>();
+        this.serviceBalances = new ArrayList<>();
     }
 
     public String getNumber() {
@@ -98,43 +90,19 @@ public class Contract
         this.room = room;
     }
 
-    public double getRentBalance() {
-        return this.rentBalance;
+    public List<ServiceBalance> getServiceBalances() {
+        return serviceBalances;
     }
 
-    public void setRentBalance(final double rentBalance) {
-        this.rentBalance = rentBalance;
+    public void setServiceBalances(List<ServiceBalance> serviceBalances) {
+        this.serviceBalances = serviceBalances;
     }
 
-    public double getPowBalance() {
-        return this.powBalance;
-    }
-
-    public void setPowBalance(final double powBalance) {
-        this.powBalance = powBalance;
-    }
-
-    public double getExpBalance() {
-        return this.expBalance;
-    }
-
-    public void setExpBalance(final double expBalance) {
-        this.expBalance = expBalance;
-    }
-
-    public List<Payment> getPayments() {
-        return this.payments;
-    }
-
-    public void setPayments(final List<Payment> payments) {
-        this.payments = payments;
-    }
-
-    public static ContractBuilder contractBuilber() {
+    public static ContractBuilder contractBuilder() {
         return new ContractBuilder();
     }
 
-    public static class ContractBuilder{
+    public static class ContractBuilder {
 
         private Contract contract;
 
@@ -178,9 +146,9 @@ public class Contract
             return this;
         }
 
-        @JsonProperty("pts")
-        public ContractBuilder withPayments(List<Payment> payments) {
-            this.contract.setPayments(payments);
+        @JsonProperty("bal")
+        public ContractBuilder withBalances(List<ServiceBalance> balances) {
+            this.contract.setServiceBalances(balances);
             return this;
         }
 
@@ -191,11 +159,14 @@ public class Contract
 
     @Override
     public String toString() {
-        return "Contract{number='" + this.number +
-                '\'' + ", startDate=" + this.startDate +
-                ", finDate=" + this.finDate +
-                ", rent=" + this.rent +
-                ", area=" + this.area +
-                ", room='" + this.room + '\'' + '}';
+        return "Contract{" +
+                "number='" + number + '\'' +
+                ", startDate=" + startDate +
+                ", finDate=" + finDate +
+                ", rent=" + rent +
+                ", area=" + area +
+                ", room='" + room + '\'' +
+                ", serviceBalances=" + serviceBalances +
+                '}';
     }
 }
