@@ -1,6 +1,6 @@
 package com.hbcu.model.request;
 
-import com.hbcu.model.Contract;
+import com.hbcu.model.contract.Contract;
 
 public class SignContractRequest {
     private int customerId;

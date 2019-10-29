@@ -37,6 +37,10 @@ public abstract class BaseDao<ENTITY> implements IBaseDao<ENTITY> {
         this.dynamoDBMapper.save(item, config);
     }
 
+    public void save(ENTITY item){
+        this.dynamoDBMapper.save(item);
+    }
+
     public List<ENTITY> getAllEntities() {
         return this.dynamoDBMapper.scan(this.entityClass, new DynamoDBScanExpression());
     }

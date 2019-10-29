@@ -5,11 +5,11 @@ import com.amazonaws.services.dynamodbv2.document.PrimaryKey;
 import java.util.List;
 
 public interface IBaseDao<ENTITY> {
-    void save(ENTITY var1);
+    void save(ENTITY entity);
 
     List<ENTITY> getAllEntities();
 
-    ENTITY getEntityByPrimaryKey(PrimaryKey var1);
+    ENTITY getEntityByPrimaryKey(PrimaryKey primaryKey);
 
-    ENTITY getEntityByQueryObject(ENTITY var1);
+    ENTITY getEntityByQueryObject(ENTITY object);
 }

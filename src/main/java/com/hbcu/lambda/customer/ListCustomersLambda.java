@@ -17,7 +17,10 @@ public class ListCustomersLambda extends AbstractLambdaHandler<CustomerRequest, 
 
     protected Object process(CustomerRequest request) {
         int id = request.getId();
-        return id == 0 ? this.customerService.getAllCustomers() : this.customerService.getCustomerById(id);
+        if (id == 0) {
+            return customerService.getAllCustomers();
+        }
+        return customerService.getCustomerById(id);
     }
 
     public ICustomerService getCustomerService() {

@@ -4,6 +4,7 @@ $(window).ready(function () {
    
     $("#create").click(function () {
         customer.companyName = $("#name").val();
+        customer.id = $("#id").val();
         customer.email = $("#email").val();
         customer.contract = $("#contrId").val();
         customer.room = $("#room").val();

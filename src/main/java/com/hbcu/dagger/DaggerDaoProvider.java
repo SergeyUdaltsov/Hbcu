@@ -4,7 +4,9 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.hbcu.dao.ICustomerDao;
+import com.hbcu.dao.IPaymentDao;
 import com.hbcu.dao.impl.CustomerDao;
+import com.hbcu.dao.impl.PaymentDao;
 import dagger.Module;
 import dagger.Provides;
 
@@ -21,8 +23,16 @@ public class DaggerDaoProvider {
 
     @Provides
     @Singleton
+    public IPaymentDao paymentDao(DynamoDBMapper dynamoDBMapper) {
+        return new PaymentDao(dynamoDBMapper);
+    }
+
+    @Provides
+    @Singleton
     public DynamoDBMapper dynamoDBMapper() {
         AmazonDynamoDB amazonDynamoDB = AmazonDynamoDBClientBuilder.defaultClient();
         return new DynamoDBMapper(amazonDynamoDB);
     }
+
+
 }
