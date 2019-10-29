@@ -38,9 +38,9 @@ public class SignContractLambda extends AbstractLambdaHandler<SignContractReques
             }
 
             contr = (Contract)var6.next();
-        } while(!contract.getNumber().equalsIgnoreCase(contr.getNumber()));
+        } while(!contract.getContractName().equalsIgnoreCase(contr.getContractName()));
 
-        throw new RuntimeException(String.format("Contract with number %s is already exists.", contr.getNumber()));
+        throw new RuntimeException(String.format("Contract with number %s is already exists.", contr.getContractName()));
     }
 
     public ICustomerService getCustomerService() {

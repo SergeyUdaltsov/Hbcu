@@ -17,6 +17,8 @@ function changeFunction() {
     $.each(contracts, function(){
         if(this.number === contractNumber) {
             updateContractInfo(this);
+            updateContractTable(this, this.rentBalance.payments, 0);
+            updateContractTable(this, this.powBalance.payments, 1);
         }
     });
 }
@@ -32,12 +34,13 @@ function updateContractInfo(contract) {
     document.getElementById("finishValue").innerHTML = finishDate.toLocaleDateString();
 }
 
-function updateContractTable(contract) {
-    var payments = contract.payments;
+function updateContractTable(contract, payments, item) {
+//    var payments = contract.rentBalance.payments;
     var new_tbody = document.createElement('tbody');
 
+        document.getElementsByTagName("tbody").item(item).parentNode.replaceChild(new_tbody, document.getElementsByTagName("tbody").item(item));
     if (payments.length === 0) {
-        document.document.getElementById("rentTableBody").parentNode.replaceChild(new_tbody, document.getElementById("rentTableBody"));
+//        document.document.getElementById("rentTableBody").parentNode.replaceChild(new_tbody, document.getElementById("rentTableBody"));
         return;
     }
 
@@ -47,10 +50,12 @@ function updateContractTable(contract) {
             cell1 = document.createElement("td");
             cell2 = document.createElement("td");
             cell3 = document.createElement("td");
+            cell4 = document.createElement("td");
 
             var date = document.createTextNode(new Date(this.date).toLocaleDateString());
             var sumBill = document.createTextNode(this.sumBill !== 0 ? this.sumBill : '');
             var sumPay = document.createTextNode(this.sumPayment !== 0 ? this.sumPayment : '');
+            var balance = document.createTextNode(this.balance)
 
             cell1.appendChild(date);
 //                        cell1.style.textAlign = "center";
@@ -63,14 +68,19 @@ function updateContractTable(contract) {
 //                        cell3.style.textAlign = "left";
 //                        cell3.style.width = 500 + 'px';
 
+            cell4.appendChild(balance);
 
             row.appendChild(cell1);
             row.appendChild(cell2);
             row.appendChild(cell3);
+            row.appendChild(cell4);
             new_tbody.appendChild(row);
 
-            document.getElementById("rentTableBody").parentNode
-            .replaceChild(new_tbody, document.getElementById("rentTableBody"));
+            document.getElementsByTagName("tbody").item(item).parentNode
+                            .replaceChild(new_tbody, document.getElementsByTagName("tbody").item(item));
+
+//            document.getElementById("rentTableBody").parentNode
+//            .replaceChild(new_tbody, document.getElementById("rentTableBody"));
       });
 }
 
@@ -110,7 +120,8 @@ function loadCustomer(url) {
                 document.getElementById("rentValue").appendChild(rent);
                 document.getElementById("startValue").appendChild(startCont);
                 document.getElementById("finishValue").appendChild(finCont);
-                updateContractTable(firstContract);
+                updateContractTable(firstContract, firstContract.rentBalance.payments, 0);
+                updateContractTable(firstContract, firstContract.powBalance.payments, 1);
 
             },
             error: function (data) {

@@ -6,6 +6,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConvertedEnum;
 import com.hbcu.model.contract.Payment;
 import com.hbcu.model.contract.ServiceType;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,21 +17,34 @@ public class ServiceBalance {
     private List<Payment> payments;
 
     @DynamoDBAttribute(attributeName = "bal")
-    private double balance;
+    private BigDecimal balance;
+
+    @DynamoDBAttribute(attributeName = "st")
+    @DynamoDBTypeConvertedEnum
+    private ServiceType serviceType;
 
     public ServiceBalance() {
         this.payments = new ArrayList<>();
+        this.balance = BigDecimal.valueOf(0);
+    }
+
+    public ServiceType getServiceType() {
+        return serviceType;
+    }
+
+    public void setServiceType(ServiceType serviceType) {
+        this.serviceType = serviceType;
     }
 
     public List<Payment> getPayments() {
         return payments;
     }
 
-    public double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
@@ -41,7 +55,9 @@ public class ServiceBalance {
     @Override
     public String toString() {
         return "ServiceBalance{" +
-                ", payments=" + payments +
+                "payments=" + payments +
+                ", balance=" + balance +
+                ", serviceType=" + serviceType +
                 '}';
     }
 }

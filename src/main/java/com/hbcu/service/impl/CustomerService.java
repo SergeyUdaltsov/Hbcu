@@ -7,6 +7,8 @@ import com.hbcu.model.contract.Payment;
 import com.hbcu.model.contract.serviceBalance.ServiceBalance;
 import com.hbcu.service.ICustomerService;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,24 +35,28 @@ public class CustomerService implements ICustomerService {
     }
 
     private void fillBalances(List<Contract> contracts ) {
-        for (Contract contract : contracts) {
-            List<ServiceBalance> serviceBalances = contract.getServiceBalances();
-            for (ServiceBalance balance : serviceBalances) {
-                fillSelectedBalance(balance);
-            }
-        }
+//        for (Contract contract : contracts) {
+//            List<ServiceBalance> serviceBalances = Arrays.asList(contract.getExplBalance(),
+//                    contract.getPowBalance(), contract.getRentBalance());
+//
+//            for (ServiceBalance balance : serviceBalances) {
+//               fillSelectedBalance(balance);
+//            }
+//        }
     }
 
     private void fillSelectedBalance(ServiceBalance balance) {
-        double start = balance.getBalance();
-        List<Payment> sortedPayments = balance.getPayments().stream()
-                .sorted(Comparator.comparingDouble(Payment::getDate))
-                .collect(Collectors.toList());
-        for (Payment payment : sortedPayments) {
-            start = start - payment.getSumBill() + payment.getSumPayment();
-            payment.setBalance(start);
+        if (balance != null) {
+            BigDecimal start = balance.getBalance();
+            List<Payment> sortedPayments = balance.getPayments().stream()
+                    .sorted(Comparator.comparingDouble(Payment::getDate))
+                    .collect(Collectors.toList());
+            for (Payment payment : sortedPayments) {
+                start = start.subtract(payment.getSumBill()).add(payment.getSumPayment());
+                payment.setBalance(start.setScale(2, RoundingMode.HALF_UP));
+            }
+            balance.setPayments(sortedPayments);
+//            balance.setBalance(start);
         }
-
-
     }
 }

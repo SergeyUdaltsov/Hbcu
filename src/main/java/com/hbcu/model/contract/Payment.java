@@ -1,20 +1,28 @@
 package com.hbcu.model.contract;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConvertedEnum;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDocument;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConvertedEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@DynamoDBDocument
+import java.math.BigDecimal;
+
+@DynamoDBTable(tableName = "Payments")
 public class Payment {
+
+    @DynamoDBHashKey
+    @DynamoDBAttribute(attributeName = "cn")
+    private String contractNumber;
+
     @DynamoDBAttribute(attributeName = "date")
     private long date;
 
     @DynamoDBAttribute(attributeName = "sumBill")
-    private double sumBill;
+    private BigDecimal sumBill;
 
     @DynamoDBAttribute(attributeName = "sumPay")
-    private double sumPayment;
+    private BigDecimal sumPayment;
 
     @DynamoDBTypeConvertedEnum
     @DynamoDBAttribute(attributeName = "pt")
@@ -24,8 +32,20 @@ public class Payment {
     @DynamoDBAttribute(attributeName = "st")
     private ServiceType serviceType;
 
-    @DynamoDBAttribute(attributeName = "bal")
-    private double balance;
+    private BigDecimal balance;
+
+    public Payment() {
+        this.sumBill = new BigDecimal(0);
+        this.sumPayment = new BigDecimal(0);
+    }
+
+    public String getContractNumber() {
+        return contractNumber;
+    }
+
+    public void setContractNumber(String contractNumber) {
+        this.contractNumber = contractNumber;
+    }
 
     public long getDate() {
         return this.date;
@@ -35,19 +55,19 @@ public class Payment {
         this.date = date;
     }
 
-    public double getSumBill() {
+    public BigDecimal getSumBill() {
         return sumBill;
     }
 
-    public void setSumBill(double sumBill) {
+    public void setSumBill(BigDecimal sumBill) {
         this.sumBill = sumBill;
     }
 
-    public double getSumPayment() {
+    public BigDecimal getSumPayment() {
         return sumPayment;
     }
 
-    public void setSumPayment(double sumPayment) {
+    public void setSumPayment(BigDecimal sumPayment) {
         this.sumPayment = sumPayment;
     }
 
@@ -67,11 +87,11 @@ public class Payment {
         this.serviceType = serviceType;
     }
 
-    public double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 
@@ -86,6 +106,12 @@ public class Payment {
             this.payment = new Payment();
         }
 
+        @JsonProperty("cn")
+        public PaymentBuilder withContractNumber(String contractNumber) {
+            this.payment.setContractNumber(contractNumber);
+            return this;
+        }
+
         @JsonProperty("date")
         public PaymentBuilder withDate(long date) {
             this.payment.setDate(date);
@@ -93,13 +119,13 @@ public class Payment {
         }
 
         @JsonProperty("sumBill")
-        public PaymentBuilder withSumBill(double sum) {
+        public PaymentBuilder withSumBill(BigDecimal sum) {
             this.payment.setSumBill(sum);
             return this;
         }
 
         @JsonProperty("sumPay")
-        public PaymentBuilder withSumPayment(double sum) {
+        public PaymentBuilder withSumPayment(BigDecimal sum) {
             this.payment.setSumPayment(sum);
             return this;
         }
@@ -117,7 +143,7 @@ public class Payment {
         }
 
         @JsonProperty("bal")
-        public PaymentBuilder withBalance(double sum) {
+        public PaymentBuilder withBalance(BigDecimal sum) {
             this.payment.setBalance(sum);
             return this;
         }
