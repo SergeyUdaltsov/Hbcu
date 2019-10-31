@@ -23,10 +23,6 @@ public class ListCustomersLambda extends AbstractLambdaHandler<CustomerRequest, 
         return customerService.getCustomerById(id);
     }
 
-    public ICustomerService getCustomerService() {
-        return this.customerService;
-    }
-
     @Inject
     public void setCustomerService(ICustomerService customerService) {
         this.customerService = customerService;

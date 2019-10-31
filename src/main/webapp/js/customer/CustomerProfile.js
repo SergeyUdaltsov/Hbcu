@@ -98,7 +98,7 @@ function loadCustomer(url) {
                 var firstContract = contracts[0];
                 pageInfo.contracts = contracts;
                 $.each(contracts, function(){
-                var opt = $("<option value='" + this.number + "'></option>").text(this.number);
+                var opt = $("<option value='" + this.number + "'></option>").text(this.contractName);
                 $("#contrValue").append(opt)
                 })
                 var contractNumber = document.createTextNode(firstContract.number);

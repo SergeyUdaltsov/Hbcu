@@ -8,7 +8,7 @@ $(window).ready(function () {
     $("#saveContr").click(function () {
     var response = new Object();
     var contract = new Object();
-    contract.number = $("#contrId").val();
+    contract.contractName = $("#contrId").val();
     response.customerId = $("#companyId").val();
     contract.startDate = new Date($("#startDate").val()).getTime();
     contract.finDate = new Date($("#finDate").val()).getTime();

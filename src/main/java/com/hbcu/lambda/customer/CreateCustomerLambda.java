@@ -55,50 +55,17 @@ public class CreateCustomerLambda extends AbstractLambdaHandler<CustomerRequest,
     public void testMethod1() {
         Payment payment = Payment.paymentBuilder()
                 .withContractNumber("contrFromPaymentService")
-                .withServiceType(ServiceType.RENT)
+                .withServiceType(ServiceType.POWER)
                 .withPaymentType(PaymentType.REGULAR)
-                .withDate(152635948599L)
+                .withDate(152114447599L)
                 .withSumBill(BigDecimal.ZERO)
-                .withSumPayment(BigDecimal.valueOf(1526.35))
+                .withSumPayment(BigDecimal.valueOf(146.35))
                 .build();
         paymentService.save(payment);
     }
 
     @Test
     public void testMethod() {
-
-//        Payment payment = Payment.paymentBuilder()
-//                .withDate(15264356655L)
-//                .withPaymentType(PaymentType.REGULAR)
-//                .withServiceType(ServiceType.RENT)
-//                .withSumPayment(BigDecimal.valueOf(15265.3))
-//                .build();
-//        Payment payment1 = Payment.paymentBuilder()
-//                .withDate(15264355655L)
-//                .withServiceType(ServiceType.RENT)
-//                .withPaymentType(PaymentType.BILL)
-//                .withSumBill(BigDecimal.valueOf(15643.58))
-//                .build();
-//        Payment payment2 = Payment.paymentBuilder()
-//                .withDate(15264111655L)
-//                .withPaymentType(PaymentType.DEBTS)
-//                .withServiceType(ServiceType.RENT)
-//                .withSumPayment(BigDecimal.valueOf(623.54))
-//                .build();
-//
-//        Payment payment3 = Payment.paymentBuilder()
-//                .withDate(15264113335L)
-//                .withPaymentType(PaymentType.REGULAR)
-//                .withServiceType(ServiceType.POWER)
-//                .withSumPayment(BigDecimal.valueOf(236.54))
-//                .build();
-//        ServiceBalance powerBalance = new ServiceBalance();
-//        List<Payment> powPayments = Arrays.asList(payment3);
-//        powerBalance.setPayments(powPayments);
-//
-//        ServiceBalance rentBalance = new ServiceBalance();
-//        List<Payment> rentPayments = Arrays.asList(payment, payment1, payment2);
-//        rentBalance.setPayments(rentPayments);
 
         Contract contract = Contract.contractBuilder()
                 .withArea(62656.32)

@@ -1,63 +1,77 @@
 package com.hbcu.model.contract.serviceBalance;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDocument;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConvertedEnum;
 import com.hbcu.model.contract.Payment;
-import com.hbcu.model.contract.ServiceType;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
-@DynamoDBDocument
 public class ServiceBalance {
 
-    @DynamoDBAttribute(attributeName = "pts")
-    private List<Payment> payments;
+    private String contractName;
+    private List<Payment> rentPayments;
+    private List<Payment> powPayments;
+    private List<Payment> expPayments;
 
-    @DynamoDBAttribute(attributeName = "bal")
-    private BigDecimal balance;
-
-    @DynamoDBAttribute(attributeName = "st")
-    @DynamoDBTypeConvertedEnum
-    private ServiceType serviceType;
+    private BigDecimal rentBalance;
+    private BigDecimal powBalance;
+    private BigDecimal expBalance;
 
     public ServiceBalance() {
-        this.payments = new ArrayList<>();
-        this.balance = BigDecimal.valueOf(0);
     }
 
-    public ServiceType getServiceType() {
-        return serviceType;
+    public String getContractName() {
+        return contractName;
     }
 
-    public void setServiceType(ServiceType serviceType) {
-        this.serviceType = serviceType;
+    public void setContractName(String contractName) {
+        this.contractName = contractName;
     }
 
-    public List<Payment> getPayments() {
-        return payments;
+    public List<Payment> getRentPayments() {
+        return rentPayments;
     }
 
-    public BigDecimal getBalance() {
-        return balance;
+    public void setRentPayments(List<Payment> rentPayments) {
+        this.rentPayments = rentPayments;
     }
 
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
+    public List<Payment> getPowPayments() {
+        return powPayments;
     }
 
-    public void setPayments(List<Payment> payments) {
-        this.payments = payments;
+    public void setPowPayments(List<Payment> powPayments) {
+        this.powPayments = powPayments;
     }
 
-    @Override
-    public String toString() {
-        return "ServiceBalance{" +
-                "payments=" + payments +
-                ", balance=" + balance +
-                ", serviceType=" + serviceType +
-                '}';
+    public List<Payment> getExpPayments() {
+        return expPayments;
+    }
+
+    public void setExpPayments(List<Payment> expPayments) {
+        this.expPayments = expPayments;
+    }
+
+    public BigDecimal getRentBalance() {
+        return rentBalance;
+    }
+
+    public void setRentBalance(BigDecimal rentBalance) {
+        this.rentBalance = rentBalance;
+    }
+
+    public BigDecimal getPowBalance() {
+        return powBalance;
+    }
+
+    public void setPowBalance(BigDecimal powBalance) {
+        this.powBalance = powBalance;
+    }
+
+    public BigDecimal getExpBalance() {
+        return expBalance;
+    }
+
+    public void setExpBalance(BigDecimal expBalance) {
+        this.expBalance = expBalance;
     }
 }
