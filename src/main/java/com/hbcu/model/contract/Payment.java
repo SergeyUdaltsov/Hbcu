@@ -1,9 +1,6 @@
 package com.hbcu.model.contract;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConvertedEnum;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
@@ -11,11 +8,14 @@ import java.math.BigDecimal;
 @DynamoDBTable(tableName = "Payments")
 public class Payment {
 
-    @DynamoDBHashKey
-    @DynamoDBAttribute(attributeName = "cn")
+    @DynamoDBHashKey(attributeName = "id")
+    @DynamoDBGeneratedUuid(DynamoDBAutoGenerateStrategy.CREATE)
+    private String id;
+
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = "cn-index", attributeName = "cn")
     private String contractNumber;
 
-    @DynamoDBAttribute(attributeName = "date")
+    @DynamoDBAttribute(attributeName = "d")
     private long date;
 
     @DynamoDBAttribute(attributeName = "sumBill")
@@ -45,6 +45,14 @@ public class Payment {
 
     public void setContractNumber(String contractNumber) {
         this.contractNumber = contractNumber;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public long getDate() {
@@ -152,5 +160,18 @@ public class Payment {
             return this.payment;
         }
 
+    }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "contractNumber='" + contractNumber + '\'' +
+                ", date=" + date +
+                ", sumBill=" + sumBill +
+                ", sumPayment=" + sumPayment +
+                ", paymentType=" + paymentType +
+                ", serviceType=" + serviceType +
+                ", balance=" + balance +
+                '}';
     }
 }

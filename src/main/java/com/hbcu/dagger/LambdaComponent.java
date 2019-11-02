@@ -9,7 +9,8 @@ import javax.inject.Singleton;
 
 @Singleton
 @Component(
-        modules = {DaggerDaoProvider.class, DaggerServiceProvider.class}
+        modules = {DaggerDaoProvider.class,
+                DaggerServiceProvider.class}
 )
 public interface LambdaComponent {
     void inject(ListCustomersLambda var1);

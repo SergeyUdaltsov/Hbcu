@@ -2,12 +2,9 @@ package com.hbcu.service.impl;
 
 import com.hbcu.dao.IPaymentDao;
 import com.hbcu.model.contract.Payment;
-import com.hbcu.model.contract.PaymentType;
-import com.hbcu.model.contract.ServiceType;
 import com.hbcu.service.IPaymentService;
-import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
+import java.util.List;
 
 public class PaymentService implements IPaymentService {
 
@@ -22,5 +19,8 @@ public class PaymentService implements IPaymentService {
         paymentDao.save(payment);
     }
 
-
+    @Override
+    public List<Payment> getPaymentsByContract(String contractName) {
+        return paymentDao.getPaymentsByContractName(contractName);
+    }
 }

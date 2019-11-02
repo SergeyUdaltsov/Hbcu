@@ -11,11 +11,13 @@ import com.hbcu.model.contract.ServiceType;
 import com.hbcu.model.request.CustomerRequest;
 import com.hbcu.service.ICustomerService;
 import com.hbcu.service.IPaymentService;
+import com.hbcu.utils.JsonUtils;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 
 public class CreateCustomerLambda extends AbstractLambdaHandler<CustomerRequest, Object> implements RequestStreamHandler {
     private ICustomerService customerService;
@@ -55,50 +57,25 @@ public class CreateCustomerLambda extends AbstractLambdaHandler<CustomerRequest,
     public void testMethod1() {
         Payment payment = Payment.paymentBuilder()
                 .withContractNumber("contrFromPaymentService")
-                .withServiceType(ServiceType.RENT)
-                .withPaymentType(PaymentType.REGULAR)
-                .withDate(152635948599L)
-                .withSumBill(BigDecimal.ZERO)
-                .withSumPayment(BigDecimal.valueOf(1526.35))
+                .withServiceType(ServiceType.EXPLOATATION)
+                .withPaymentType(PaymentType.BILL)
+                .withDate(152119997599L)
+                .withSumBill(BigDecimal.valueOf(162354))
+                .withSumPayment(BigDecimal.ZERO)
                 .build();
         paymentService.save(payment);
     }
 
     @Test
-    public void testMethod() {
+    public void testMethod3() {
+        List<Payment> payments = paymentService.getPaymentsByContract("contrFromPaymentService");
+        for (Object payment : payments) {
+            System.out.println("Payment---- " + JsonUtils.convertObjectToJson(payment, false));
+        }
+    }
 
-//        Payment payment = Payment.paymentBuilder()
-//                .withDate(15264356655L)
-//                .withPaymentType(PaymentType.REGULAR)
-//                .withServiceType(ServiceType.RENT)
-//                .withSumPayment(BigDecimal.valueOf(15265.3))
-//                .build();
-//        Payment payment1 = Payment.paymentBuilder()
-//                .withDate(15264355655L)
-//                .withServiceType(ServiceType.RENT)
-//                .withPaymentType(PaymentType.BILL)
-//                .withSumBill(BigDecimal.valueOf(15643.58))
-//                .build();
-//        Payment payment2 = Payment.paymentBuilder()
-//                .withDate(15264111655L)
-//                .withPaymentType(PaymentType.DEBTS)
-//                .withServiceType(ServiceType.RENT)
-//                .withSumPayment(BigDecimal.valueOf(623.54))
-//                .build();
-//
-//        Payment payment3 = Payment.paymentBuilder()
-//                .withDate(15264113335L)
-//                .withPaymentType(PaymentType.REGULAR)
-//                .withServiceType(ServiceType.POWER)
-//                .withSumPayment(BigDecimal.valueOf(236.54))
-//                .build();
-//        ServiceBalance powerBalance = new ServiceBalance();
-//        List<Payment> powPayments = Arrays.asList(payment3);
-//        powerBalance.setPayments(powPayments);
-//
-//        ServiceBalance rentBalance = new ServiceBalance();
-//        List<Payment> rentPayments = Arrays.asList(payment, payment1, payment2);
-//        rentBalance.setPayments(rentPayments);
+    @Test
+    public void testMethod() {
 
         Contract contract = Contract.contractBuilder()
                 .withArea(62656.32)

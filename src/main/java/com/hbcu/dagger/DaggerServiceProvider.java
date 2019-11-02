@@ -19,8 +19,8 @@ public class DaggerServiceProvider {
 
     @Provides
     @Singleton
-    public ICustomerService customerService(ICustomerDao customerDao) {
-        return new CustomerService(customerDao);
+    public ICustomerService customerService(ICustomerDao customerDao, IPaymentService paymentService) {
+        return new CustomerService(customerDao, paymentService);
     }
 
     @Provides
