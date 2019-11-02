@@ -19,12 +19,15 @@ public class Contract {
     @DynamoDBAttribute(attributeName = "rent")
     private double rent;
 
-    @JsonProperty
     @DynamoDBAttribute(attributeName = "area")
     private double area;
 
     @DynamoDBAttribute(attributeName = "room")
     private String room;
+
+    @DynamoDBAttribute(attributeName = "rt")
+//    @DynamoDBTypeConvertedEnum
+    private String roomType;
 
     public Contract() {
     }
@@ -77,6 +80,14 @@ public class Contract {
         this.room = room;
     }
 
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
+    }
+
     public static ContractBuilder contractBuilder() {
         return new ContractBuilder();
     }
@@ -122,6 +133,12 @@ public class Contract {
         @JsonProperty("room")
         public ContractBuilder withRoom(String room) {
             this.contract.setRoom(room);
+            return this;
+        }
+
+        @JsonProperty("rt")
+        public ContractBuilder withRoomType(String roomType) {
+            this.contract.setRoomType(roomType);
             return this;
         }
 

@@ -25,12 +25,10 @@ public class SignContractLambda extends AbstractLambdaHandler<SignContractReques
         Customer customer = this.customerService.getCustomerById(customerId);
         System.out.println("Customer from db: " + JsonUtils.convertObjectToJson(customer));
         System.out.println("Contract from request: " + JsonUtils.convertObjectToJson(contract));
-        List<Contract> contracts = customer.getContracts();
-        for (Contract contr : contracts) {
-            if (contract.getContractName().equalsIgnoreCase(contr.getContractName())) {
-                throw new RuntimeException(String.format("Contract with number %s is already exists.", contract.getContractName()));
-            }
+        if (!contractValid(customer, contract)) {
+            return "Contract data is not valid or contract alreadt exists";
         }
+        List<Contract> contracts = customer.getContracts();
         contracts.add(contract);
         System.out.println("Customer to be saved to db: " + JsonUtils.convertObjectToJson(customer));
         this.customerService.save(customer);
@@ -41,6 +39,19 @@ public class SignContractLambda extends AbstractLambdaHandler<SignContractReques
 
     public ICustomerService getCustomerService() {
         return this.customerService;
+    }
+
+    private boolean contractValid(Customer customer, Contract contract) {
+        List<Contract> contracts = customer.getContracts();
+        if (contracts.isEmpty()) {
+            return true;
+        }
+        for (Contract contr : contracts) {
+            if (contract.getContractName().equalsIgnoreCase(contr.getContractName())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Inject

@@ -1,14 +1,14 @@
 package com.hbcu.model.dto;
 
 import com.hbcu.model.Customer;
-import com.hbcu.model.contract.serviceBalance.ServiceBalance;
+import com.hbcu.model.contract.serviceBalance.ContractBalance;
 
 import java.util.List;
 
 public class CustomerDto {
 
     private Customer customer;
-    List<ServiceBalance> balances;
+    List<ContractBalance> balances;
 
     public CustomerDto() {
 
@@ -22,11 +22,11 @@ public class CustomerDto {
         this.customer = customer;
     }
 
-    public List<ServiceBalance> getBalances() {
+    public List<ContractBalance> getBalances() {
         return balances;
     }
 
-    public void setBalances(List<ServiceBalance> balances) {
+    public void setBalances(List<ContractBalance> balances) {
         this.balances = balances;
     }
 }

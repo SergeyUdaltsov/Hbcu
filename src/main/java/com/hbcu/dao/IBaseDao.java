@@ -12,4 +12,6 @@ public interface IBaseDao<ENTITY> {
     ENTITY getEntityByPrimaryKey(PrimaryKey primaryKey);
 
     ENTITY getEntityByQueryObject(ENTITY object);
+
+    List<ENTITY> getItemsByIndex(String indexName, String hashKeyName, String hashKeyValue);
 }

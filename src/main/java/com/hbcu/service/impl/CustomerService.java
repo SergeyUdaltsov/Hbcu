@@ -28,27 +28,28 @@ public class CustomerService implements ICustomerService {
 
     public Customer getCustomerById(int id) {
         Customer customer = this.dao.getCustomerById(id);
-        System.out.println("customer ------- " + JsonUtils.convertObjectToJson(customer, false));
-        List<Contract> contracts = customer.getContracts();
-        for (Contract contract : contracts) {
-
-        }
-        fillBalances(customer.getContracts());
+        System.out.println("customer ------- " + JsonUtils.convertObjectToJson(customer));
         return customer;
     }
 
+//    public CustomerDto getCustomerInfo(int customerId) {
+//        Customer customer = this.dao.getCustomerById(customerId);
+//
+//
+//    }
+
     private void fillBalances(List<Contract> contracts ) {
 //        for (Contract contract : contracts) {
-//            List<ServiceBalance> serviceBalances = Arrays.asList(contract.getExplBalance(),
+//            List<ContractBalance> serviceBalances = Arrays.asList(contract.getExplBalance(),
 //                    contract.getPowBalance(), contract.getRentBalance());
 //
-//            for (ServiceBalance balance : serviceBalances) {
+//            for (ContractBalance balance : serviceBalances) {
 //               fillSelectedBalance(balance);
 //            }
 //        }
     }
 
-//    private void fillSelectedBalance(ServiceBalance balance) {
+//    private void fillSelectedBalance(ContractBalance balance) {
 //        if (balance != null) {
 //            BigDecimal start = balance.getBalance();
 //            List<Payment> sortedPayments = balance.getPayments().stream()

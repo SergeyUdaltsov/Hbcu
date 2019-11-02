@@ -15,6 +15,7 @@ $(window).ready(function () {
     contract.room = $("#room").val();
     contract.area = $("#area").val();
     contract.rent = $("#rent").val();
+    contract.roomType = $("#roomType").val();
     response.contract = contract;
     sendData(JSON.stringify(response), 'https://0jtishgt05.execute-api.eu-central-1.amazonaws.com/prod/contract/sign');
     });

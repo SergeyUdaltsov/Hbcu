@@ -161,4 +161,17 @@ public class Payment {
         }
 
     }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "contractNumber='" + contractNumber + '\'' +
+                ", date=" + date +
+                ", sumBill=" + sumBill +
+                ", sumPayment=" + sumPayment +
+                ", paymentType=" + paymentType +
+                ", serviceType=" + serviceType +
+                ", balance=" + balance +
+                '}';
+    }
 }

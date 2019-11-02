@@ -11,11 +11,13 @@ import com.hbcu.model.contract.ServiceType;
 import com.hbcu.model.request.CustomerRequest;
 import com.hbcu.service.ICustomerService;
 import com.hbcu.service.IPaymentService;
+import com.hbcu.utils.JsonUtils;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 
 public class CreateCustomerLambda extends AbstractLambdaHandler<CustomerRequest, Object> implements RequestStreamHandler {
     private ICustomerService customerService;
@@ -55,13 +57,21 @@ public class CreateCustomerLambda extends AbstractLambdaHandler<CustomerRequest,
     public void testMethod1() {
         Payment payment = Payment.paymentBuilder()
                 .withContractNumber("contrFromPaymentService")
-                .withServiceType(ServiceType.POWER)
-                .withPaymentType(PaymentType.REGULAR)
-                .withDate(152114447599L)
-                .withSumBill(BigDecimal.ZERO)
-                .withSumPayment(BigDecimal.valueOf(146.35))
+                .withServiceType(ServiceType.EXPLOATATION)
+                .withPaymentType(PaymentType.BILL)
+                .withDate(152119997599L)
+                .withSumBill(BigDecimal.valueOf(162354))
+                .withSumPayment(BigDecimal.ZERO)
                 .build();
         paymentService.save(payment);
+    }
+
+    @Test
+    public void testMethod3() {
+        List<Payment> payments = paymentService.getPaymentsByContract("contrFromPaymentService");
+        for (Object payment : payments) {
+            System.out.println("Payment---- " + JsonUtils.convertObjectToJson(payment, false));
+        }
     }
 
     @Test

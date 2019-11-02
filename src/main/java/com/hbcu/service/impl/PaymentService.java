@@ -21,7 +21,6 @@ public class PaymentService implements IPaymentService {
 
     @Override
     public List<Payment> getPaymentsByContract(String contractName) {
-
-        return null;
+        return paymentDao.getPaymentsByContractName(contractName);
     }
 }
