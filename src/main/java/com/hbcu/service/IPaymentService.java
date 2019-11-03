@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IPaymentService {
 
-    void save(Payment payment);
+    void createPayment(Payment payment);
 
     List<Payment> getPaymentsByContract(String contractName);
 }

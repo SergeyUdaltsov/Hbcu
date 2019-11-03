@@ -5,7 +5,6 @@ import com.hbcu.model.Customer;
 import com.hbcu.model.contract.Contract;
 import com.hbcu.service.ICustomerService;
 import com.hbcu.service.IPaymentService;
-import com.hbcu.utils.JsonUtils;
 
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class CustomerService implements ICustomerService {
 
     public Customer getCustomerById(int id) {
         Customer customer = this.dao.getCustomerById(id);
-        System.out.println("customer ------- " + JsonUtils.convertObjectToJson(customer));
+//        System.out.println("customer ------- " + JsonUtils.convertObjectToJson(customer));
         return customer;
     }
 

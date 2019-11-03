@@ -6,7 +6,6 @@ import com.hbcu.model.Customer;
 import com.hbcu.model.contract.Contract;
 import com.hbcu.model.contract.Payment;
 import com.hbcu.model.contract.ServiceType;
-import com.hbcu.model.contract.serviceBalance.ContractBalance;
 import com.hbcu.model.contract.serviceBalance.TableBalance;
 import com.hbcu.model.dto.CustomerDto;
 import com.hbcu.model.request.CustomerRequest;
@@ -18,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import javax.inject.Inject;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -45,34 +45,30 @@ public class ListCustomersLambda extends AbstractLambdaHandler<CustomerRequest, 
     private CustomerDto createCustomerDto(Customer customer) {
         CustomerDto customerDto = new CustomerDto();
         List<Contract> contracts = customer.getContracts();
-        List<ContractBalance> contractBalances = new ArrayList<>();
         for (Contract contract : contracts) {
             String contractName = contract.getContractName();
-            ContractBalance balance = createContractBalance(contractName);
-            contractBalances.add(balance);
+            contract.setTableBalances(createTableBalances(contractName));
         }
-        customerDto.setBalances(contractBalances);
         customerDto.setCustomer(customer);
         return customerDto;
     }
 
-    private ContractBalance createContractBalance(String contractName) {
+    private List<TableBalance> createTableBalances(String contractName) {
         List<Payment> payments = paymentService.getPaymentsByContract(contractName);
-        ContractBalance contractBalance = new ContractBalance();
-        contractBalance.setContractName(contractName);
-        List<TableBalance> tableBalances = contractBalance.getTableBalances();
+        List<TableBalance> tableBalances = new ArrayList<>();
         for (ServiceType type : ServiceType.values()) {
             TableBalance tableBalance = new TableBalance();
             tableBalance.setServiceType(type);
             List<Payment> paymentsByType = payments.stream()
                     .filter(p -> type == p.getServiceType())
-                    .sorted(Comparator.comparingLong(Payment::getDate).reversed())
+                    .sorted(Comparator.comparingLong(Payment::getDate))
                     .collect(Collectors.toList());
             tableBalance.setBalance(fillPaymentsWithBalances(paymentsByType));
+            Collections.reverse(paymentsByType);
             tableBalance.setPayments(paymentsByType);
             tableBalances.add(tableBalance);
         }
-        return contractBalance;
+        return tableBalances;
     }
 
     private BigDecimal fillPaymentsWithBalances(List<Payment> sortedPayments) {
@@ -85,6 +81,15 @@ public class ListCustomersLambda extends AbstractLambdaHandler<CustomerRequest, 
         return start;
     }
 
+
+    @Test
+    public void testMethod1() {
+        List<Payment> payments = paymentService.getPaymentsByContract("jhvhgvgv договор");
+        for (Payment payment : payments) {
+            System.out.println("Payment ---- " + JsonUtils.convertObjectToJson(payment));
+        }
+    }
+
     @Inject
     public void setCustomerService(ICustomerService customerService) {
         this.customerService = customerService;
@@ -95,8 +100,4 @@ public class ListCustomersLambda extends AbstractLambdaHandler<CustomerRequest, 
         this.paymentService = paymentService;
     }
 
-    @Test
-    public void testMethod() {
-
-    }
 }

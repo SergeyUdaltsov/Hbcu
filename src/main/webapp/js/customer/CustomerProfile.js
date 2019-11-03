@@ -15,10 +15,9 @@ function changeFunction() {
     var contractNumber = $("#contrValue").val();
 
     $.each(contracts, function(){
-        if(this.number === contractNumber) {
+        if(this.contractName === contractNumber) {
             updateContractInfo(this);
-            updateContractTable(this, this.rentBalance.payments, 0);
-            updateContractTable(this, this.powBalance.payments, 1);
+            updateContractTable(this, this.tableBalances);
         }
     });
 }
@@ -34,55 +33,66 @@ function updateContractInfo(contract) {
     document.getElementById("finishValue").innerHTML = finishDate.toLocaleDateString();
 }
 
-function updateContractTable(contract, payments, item) {
-//    var payments = contract.rentBalance.payments;
-    var new_tbody = document.createElement('tbody');
+function updateContractTable(contract, tableBalances) {
 
-        document.getElementsByTagName("tbody").item(item).parentNode.replaceChild(new_tbody, document.getElementsByTagName("tbody").item(item));
-    if (payments.length === 0) {
-//        document.document.getElementById("rentTableBody").parentNode.replaceChild(new_tbody, document.getElementById("rentTableBody"));
-        return;
-    }
+    var tableNumbers = new Map();
+    tableNumbers.set('RENT', 0);
+    tableNumbers.set('POWER', 1);
+    tableNumbers.set('EXPLOATATION', 2);
 
-    $.each(payments, function () {
+    $.each(tableBalances, function() {
+    var tableNumber = tableNumbers.get(this.serviceType);
+      var new_tbody = document.createElement('tbody');
 
-        var row = document.createElement("tr");
-            cell1 = document.createElement("td");
-            cell2 = document.createElement("td");
-            cell3 = document.createElement("td");
-            cell4 = document.createElement("td");
+            document.getElementsByTagName("tbody").item(tableNumber).parentNode.replaceChild(new_tbody, document.getElementsByTagName("tbody").item(tableNumber));
+        var totalServiceBalance = 0;
+        $.each(this.payments, function() {
+            var row = document.createElement("tr");
+                        cell1 = document.createElement("td");
+                        cell2 = document.createElement("td");
+                        cell3 = document.createElement("td");
+                        cell4 = document.createElement("td");
 
-            var date = document.createTextNode(new Date(this.date).toLocaleDateString());
-            var sumBill = document.createTextNode(this.sumBill !== 0 ? this.sumBill : '');
-            var sumPay = document.createTextNode(this.sumPayment !== 0 ? this.sumPayment : '');
-            var balance = document.createTextNode(this.balance)
+                        var date = document.createTextNode(new Date(this.date).toLocaleDateString());
+                        var sumBill = document.createTextNode(this.sumBill !== 0 ? this.sumBill : '');
+                        var sumPay = document.createTextNode(this.sumPayment !== 0 ? this.sumPayment : '');
+                        var balance = document.createTextNode(this.balance)
+                        totalServiceBalance = this.balance;
 
-            cell1.appendChild(date);
-//                        cell1.style.textAlign = "center";
-//                        cell1.style.width = 150 + 'px';
-            cell2.appendChild(sumBill);
-//                        cell2.style.textAlign = "left";
-//                        cell2.style.width = 400 + 'px';
+                        cell1.appendChild(date);
+                        cell1.style.textAlign = "center";
+            //                        cell1.style.width = 150 + 'px';
+                        cell2.appendChild(sumBill);
+                        cell2.style.textAlign = "center";
+            //                        cell2.style.width = 400 + 'px';
 
-            cell3.appendChild(sumPay);
-//                        cell3.style.textAlign = "left";
-//                        cell3.style.width = 500 + 'px';
+                        cell3.appendChild(sumPay);
+                        cell3.style.textAlign = "center";
+            //                        cell3.style.width = 500 + 'px';
 
-            cell4.appendChild(balance);
+                        cell4.appendChild(balance);
+                        cell4.style.textAlign = "center";
+                        if(this.balance < 0) {
+                            cell4.style.backgroundColor = "red"
 
-            row.appendChild(cell1);
-            row.appendChild(cell2);
-            row.appendChild(cell3);
-            row.appendChild(cell4);
-            new_tbody.appendChild(row);
+                        }
 
-            document.getElementsByTagName("tbody").item(item).parentNode
-                            .replaceChild(new_tbody, document.getElementsByTagName("tbody").item(item));
+                        row.appendChild(cell1);
+                        row.appendChild(cell2);
+                        row.appendChild(cell3);
+                        row.appendChild(cell4);
+                        new_tbody.appendChild(row);
 
-//            document.getElementById("rentTableBody").parentNode
-//            .replaceChild(new_tbody, document.getElementById("rentTableBody"));
-      });
+                        document.getElementsByTagName("tbody").item(tableNumber).parentNode
+                                        .replaceChild(new_tbody, document.getElementsByTagName("tbody").item(tableNumber));
+
+        });
+         document.getElementById(this.serviceType).innerHTML = totalServiceBalance;
+    });
+
 }
+
+
 
 function loadCustomer(url) {
 
@@ -93,24 +103,24 @@ function loadCustomer(url) {
             data: {
             },
             success: function (data) {
-                var companyName = document.createTextNode(data.companyName);
-                var contracts = data.contracts;
+                var companyName = document.createTextNode(data.customer.companyName);
+                var contracts = data.customer.contracts;
                 var firstContract = contracts[0];
                 pageInfo.contracts = contracts;
                 $.each(contracts, function(){
-                var opt = $("<option value='" + this.number + "'></option>").text(this.contractName);
+                var opt = $("<option value='" + this.contractName + "'></option>").text(this.contractName);
                 $("#contrValue").append(opt)
                 })
                 var contractNumber = document.createTextNode(firstContract.number);
                 var area = document.createTextNode(firstContract.area);
                 var room = document.createTextNode(firstContract.room);
                 var rent = document.createTextNode(firstContract.rent);
-                var contacts = document.createTextNode(data.contacts);
+                var contacts = document.createTextNode(data.customer.contacts);
                 var startDate = new Date(firstContract.startDate);
                 var startCont = document.createTextNode(startDate.toLocaleDateString());
                 var finishDate = new Date(firstContract.finDate);
                 var finCont = document.createTextNode(finishDate.toLocaleDateString());
-                var description = document.createTextNode(data.description);
+                var description = document.createTextNode(data.customer.description);
 //
                 document.getElementById("compTitleValue").appendChild(companyName);
                 document.getElementById("descValue").appendChild(description);
@@ -120,9 +130,7 @@ function loadCustomer(url) {
                 document.getElementById("rentValue").appendChild(rent);
                 document.getElementById("startValue").appendChild(startCont);
                 document.getElementById("finishValue").appendChild(finCont);
-                updateContractTable(firstContract, firstContract.rentBalance.payments, 0);
-                updateContractTable(firstContract, firstContract.powBalance.payments, 1);
-
+                updateContractTable(firstContract, firstContract.tableBalances);
             },
             error: function (data) {
             }
