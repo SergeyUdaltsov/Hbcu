@@ -3,6 +3,10 @@ package com.hbcu.model.contract;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDocument;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.hbcu.model.contract.serviceBalance.TableBalance;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 @DynamoDBDocument
 public class Contract {
@@ -17,17 +21,18 @@ public class Contract {
     private long finDate;
 
     @DynamoDBAttribute(attributeName = "rent")
-    private double rent;
+    private BigDecimal rent;
 
     @DynamoDBAttribute(attributeName = "area")
-    private double area;
+    private BigDecimal area;
 
     @DynamoDBAttribute(attributeName = "room")
     private String room;
 
     @DynamoDBAttribute(attributeName = "rt")
-//    @DynamoDBTypeConvertedEnum
     private String roomType;
+
+    private List<TableBalance> tableBalances;
 
     public Contract() {
     }
@@ -56,19 +61,19 @@ public class Contract {
         this.finDate = finDate;
     }
 
-    public double getRent() {
-        return this.rent;
+    public BigDecimal getRent() {
+        return rent;
     }
 
-    public void setRent(final double rent) {
+    public void setRent(BigDecimal rent) {
         this.rent = rent;
     }
 
-    public double getArea() {
-        return this.area;
+    public BigDecimal getArea() {
+        return area;
     }
 
-    public void setArea(final double area) {
+    public void setArea(BigDecimal area) {
         this.area = area;
     }
 
@@ -86,6 +91,14 @@ public class Contract {
 
     public void setRoomType(String roomType) {
         this.roomType = roomType;
+    }
+
+    public List<TableBalance> getTableBalances() {
+        return tableBalances;
+    }
+
+    public void setTableBalances(List<TableBalance> tableBalances) {
+        this.tableBalances = tableBalances;
     }
 
     public static ContractBuilder contractBuilder() {
@@ -119,13 +132,13 @@ public class Contract {
         }
 
         @JsonProperty("rent")
-        public ContractBuilder withRent(double rent) {
+        public ContractBuilder withRent(BigDecimal rent) {
             this.contract.setRent(rent);
             return this;
         }
 
         @JsonProperty("area")
-        public ContractBuilder withArea(double area) {
+        public ContractBuilder withArea(BigDecimal area) {
             this.contract.setArea(area);
             return this;
         }

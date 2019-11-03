@@ -7,7 +7,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.amazonaws.services.dynamodbv2.document.*;
 import com.hbcu.dao.IBaseDao;
 import com.hbcu.dao.IDynamoFactory;
-import com.hbcu.utils.JsonUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -40,14 +39,14 @@ public abstract class BaseDao<ENTITY> implements IBaseDao<ENTITY> {
     }
 
     @Override
-    public List<ENTITY> getItemsByIndex(String indexName, String hashKeyName, String hashKeyValue) {
+    public List<Item> getItemsByIndex(String indexName, String hashKeyName, String hashKeyValue) {
         Table table = getDynamoDB().getTable(tableName);
         Index index = table.getIndex(indexName);
         ItemCollection<QueryOutcome> results = index.query(hashKeyName, hashKeyValue);
         Iterator<Item> iterator = results.iterator();
-        List<ENTITY> resultItems = new ArrayList<>();
+        List<Item> resultItems = new ArrayList<>();
         while (iterator.hasNext()) {
-            resultItems.add(JsonUtils.parseMap(iterator.next().asMap(), entityClass));
+            resultItems.add(iterator.next());
         }
         return resultItems;
     }

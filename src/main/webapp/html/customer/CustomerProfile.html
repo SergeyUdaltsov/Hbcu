@@ -6,7 +6,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../css/Style.css">
+<!--    <link rel="stylesheet" href="../../Style.css">-->
+
 </head>
 <body>
 <div class="container-fluid">
@@ -93,7 +94,7 @@
                 <i>
                     <b id="rentBalKey" style="margin-left: 5px margin-right: 10px">Аренда баланс:</b>
                 </i>
-                <p id="rentBalValue" style="margin-left: 10px"></p>
+                <p id="RENT" style="margin-left: 10px"></p>
             </div>
         </div>
         <div class="col-md-4">
@@ -101,7 +102,7 @@
                 <i>
                     <b id="powBalKey" style="margin-left: 5px margin-right: 10px">Эл. эн. баланс:</b>
                 </i>
-                <p id="powBalValue" style="margin-left: 10px"></p>
+                <p id="POWER" style="margin-left: 10px"></p>
             </div>
         </div>
         <div class="col-md-4">
@@ -109,14 +110,14 @@
                 <i>
                     <b id="expBalKey" style="margin-left: 5px margin-right: 10px">Экспл. баланс:</b>
                 </i>
-                <p id="expBalValue" style="margin-left: 10px"></p>
+                <p id="EXPLOATATION" style="margin-left: 10px"></p>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-4">
             <div class="container">
-                <table class="table" id="rentTable">
+                <table class="table">
                     <thead>
                     <tr>
                         <th id="dateRent" scope="col" style="background-color: #B8948C; width: 500px; text-align: center;">Дата</th>
@@ -131,7 +132,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <table class="table" id="powTable">
+            <table class="table">
                 <thead>
                 <tr>
                     <th scope="col" style="background-color: #B8948C; width: 500px; text-align: center;">Дата</th>
@@ -145,12 +146,13 @@
             </table>
         </div>
         <div class="col-md-4">
-            <table class="table table-striped" id="expTable">
-                <thead class="thead-dark">
+            <table class="table">
+                <thead>
                 <tr>
-                    <th id="dateExp" scope="col" style="background-color: #B8948C; width: 900px; text-align: center;">Дата</th>
-                    <th id="countExp" scope="col" style="background-color: #B8948C; width: 220px; text-align: center;">Начислено</th>
-                    <th id="payedExp" scope="col" style="background-color: #B8948C; width: 300px; text-align: center;">Оплата</th>
+                    <th scope="col" style="background-color: #B8948C; width: 500px; text-align: center;">Дата</th>
+                    <th scope="col" style="background-color: #B8948C; width: 350px; text-align: center;">Начислено</th>
+                    <th scope="col" style="background-color: #B8948C; width: 350px; text-align: center;">Оплата</th>
+                    <th scope="col" style="background-color: #B8948C; width: 350px; text-align: center;">Балланс</th>
                 </tr>
                 </thead>
                 <tbody>

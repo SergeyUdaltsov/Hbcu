@@ -3,6 +3,7 @@ package com.hbcu.dagger;
 import com.hbcu.lambda.contract.SignContractLambda;
 import com.hbcu.lambda.customer.CreateCustomerLambda;
 import com.hbcu.lambda.customer.ListCustomersLambda;
+import com.hbcu.lambda.payment.ProvideBillLambda;
 import dagger.Component;
 
 import javax.inject.Singleton;
@@ -13,10 +14,12 @@ import javax.inject.Singleton;
                 DaggerServiceProvider.class}
 )
 public interface LambdaComponent {
-    void inject(ListCustomersLambda var1);
+    void inject(ListCustomersLambda lambda);
 
-    void inject(CreateCustomerLambda var1);
+    void inject(CreateCustomerLambda lambda);
 
-    void inject(SignContractLambda var1);
+    void inject(SignContractLambda lambda);
+
+    void inject(ProvideBillLambda lambda);
 }
 

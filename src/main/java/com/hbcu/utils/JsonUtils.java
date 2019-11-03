@@ -47,6 +47,15 @@ public class JsonUtils {
         }
     }
 
+    public static <T> T parseJson(String json, Class<T> clazz) {
+        try {
+            return CommonUtils.objectMapper().readValue(json, clazz);
+        } catch (IOException var3) {
+            var3.printStackTrace();
+            throw new RuntimeException(String.format("Error while parsing json: %s", json));
+        }
+    }
+
     public static <T> T parseMap(Map<String, ?> params, Class<T> clazz) {
         return CommonUtils.objectMapper().convertValue(params, clazz);
     }

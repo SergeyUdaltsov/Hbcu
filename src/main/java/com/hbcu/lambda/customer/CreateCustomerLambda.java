@@ -63,7 +63,7 @@ public class CreateCustomerLambda extends AbstractLambdaHandler<CustomerRequest,
                 .withSumBill(BigDecimal.valueOf(162354))
                 .withSumPayment(BigDecimal.ZERO)
                 .build();
-        paymentService.save(payment);
+        paymentService.createPayment(payment);
     }
 
     @Test
@@ -78,11 +78,11 @@ public class CreateCustomerLambda extends AbstractLambdaHandler<CustomerRequest,
     public void testMethod() {
 
         Contract contract = Contract.contractBuilder()
-                .withArea(62656.32)
+                .withArea(BigDecimal.valueOf(62656.32))
                 .withFinDate(15626656595L)
                 .withStartDate(15626656595L)
                 .withName("dhfbiefiyf/558")
-                .withRent(265.3)
+                .withRent(BigDecimal.valueOf(265.3))
                 .withRoom("room")
                 .build();
 

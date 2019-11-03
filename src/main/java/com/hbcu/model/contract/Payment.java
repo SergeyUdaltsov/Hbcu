@@ -59,7 +59,7 @@ public class Payment {
         return this.date;
     }
 
-    public void setDate(final long date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
@@ -83,7 +83,7 @@ public class Payment {
         return this.paymentType;
     }
 
-    public void setPaymentType(final PaymentType paymentType) {
+    public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
     }
 
@@ -91,7 +91,7 @@ public class Payment {
         return this.serviceType;
     }
 
-    public void setServiceType(final ServiceType serviceType) {
+    public void setServiceType(ServiceType serviceType) {
         this.serviceType = serviceType;
     }
 
@@ -120,7 +120,13 @@ public class Payment {
             return this;
         }
 
-        @JsonProperty("date")
+        @JsonProperty("id")
+        public PaymentBuilder withId(String id) {
+            this.payment.setId(id);
+            return this;
+        }
+
+        @JsonProperty("d")
         public PaymentBuilder withDate(long date) {
             this.payment.setDate(date);
             return this;
@@ -150,11 +156,11 @@ public class Payment {
             return this;
         }
 
-        @JsonProperty("bal")
-        public PaymentBuilder withBalance(BigDecimal sum) {
-            this.payment.setBalance(sum);
-            return this;
-        }
+//        @JsonProperty("bal")
+//        public PaymentBuilder withBalance(BigDecimal sum) {
+//            this.payment.setBalance(sum);
+//            return this;
+//        }
 
         public Payment build() {
             return this.payment;

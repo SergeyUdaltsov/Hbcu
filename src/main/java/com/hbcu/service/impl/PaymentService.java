@@ -15,7 +15,7 @@ public class PaymentService implements IPaymentService {
     }
 
     @Override
-    public void save(Payment payment) {
+    public void createPayment(Payment payment) {
         paymentDao.save(payment);
     }
 

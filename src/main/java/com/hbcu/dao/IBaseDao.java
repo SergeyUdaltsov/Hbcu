@@ -1,5 +1,6 @@
 package com.hbcu.dao;
 
+import com.amazonaws.services.dynamodbv2.document.Item;
 import com.amazonaws.services.dynamodbv2.document.PrimaryKey;
 
 import java.util.List;
@@ -13,5 +14,5 @@ public interface IBaseDao<ENTITY> {
 
     ENTITY getEntityByQueryObject(ENTITY object);
 
-    List<ENTITY> getItemsByIndex(String indexName, String hashKeyName, String hashKeyValue);
+    List<Item> getItemsByIndex(String indexName, String hashKeyName, String hashKeyValue);
 }
