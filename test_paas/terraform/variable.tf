@@ -28,10 +28,6 @@ variable "subnet_id" {
   description = "The VPC Subnet ID to launch instance"
 }
 
-variable "tags" {
-  type = map(string)
-  description = "A mapping of tags to assign to the resource"
-}
 variable "m3_regionName" {
   description = "The AWS region to deploy"
   type = string
