@@ -18,11 +18,6 @@ variable "key_name" {
   description = "Key name of the Key Pair to use for the instance; which can be managed using the aws_key_pair resource"
 }
 
-variable "monitoring" {
-  type = bool
-  description = "If true, the launched EC2 instance will have detailed monitoring enabled"
-}
-
 variable "vpc_security_group_ids" {
   type = list(string)
   description = "A list of security group IDs to associate with"
