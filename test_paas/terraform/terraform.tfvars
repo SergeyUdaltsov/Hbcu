@@ -1,6 +1,6 @@
 name                   = "ec2-example"
 ami                    = "Linux_Ubuntu_18"
-instance_type          = "t2.micro"
+instance_type          = "t3.micro"
 key_name               = "dev2_m3server"
 monitoring             = true
 vpc_security_group_ids = ["sg-060a2ac72a63410a9"]
