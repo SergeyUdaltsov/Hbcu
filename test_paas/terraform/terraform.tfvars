@@ -1,4 +1,4 @@
-name                   = "ec2-example"
+name                   = "udaltest"
 ami                    = "Linux_Ubuntu_18"
 instance_type          = "t2.micro"
 key_name               = "dev2_m3server"
