@@ -6,7 +6,7 @@ provider "aws" {
    ami           = "ami-657bd20a"
    instance_type = "t2.micro"
    tags = {
-     Name = "${var.vm_name}"
+     Name = "kjfjef"
    }
  }
  variable "vm_name" {
