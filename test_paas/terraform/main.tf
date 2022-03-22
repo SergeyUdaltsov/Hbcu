@@ -6,10 +6,10 @@ provider "aws" {
    ami           = "ami-657bd20a"
    instance_type = "t2.micro"
    tags = {
-     Name = var.vm_name
+     Name = "${var.vm_name}"
    }
  }
  variable "vm_name" {
-   default = "udaltest"
+   default = "auto_user_from_tf_template"
    description = "Name for VM to be created"
 }
