@@ -1,16 +1,15 @@
-terraform {
-  required_version = "> 0.13.1"
-}
-
-module "ec2_instance" {
-  source                 = "terraform-aws-modules/ec2-instance/aws"
-  version                = "~> 3.0"
-  name                   = var.name
-  ami                    = var.ami
-  instance_type          = var.instance_type
-  key_name               = var.key_name
-  vpc_security_group_ids = var.vpc_security_group_ids
-  subnet_id              = var.subnet_id
-
-
+provider "aws" {
+   region = "eu-central-1"
+ }
+ resource "aws_instance" "test_VM" {
+   # Amazon Linux AMI 2017.03.1 (HVM)
+   ami           = "ami-657bd20a"
+   instance_type = "t2.micro"
+   tags = {
+     Name = var.vm_name
+   }
+ }
+ variable "vm_name" {
+   default = "udaltest"
+   description = "Name for VM to be created"
 }
